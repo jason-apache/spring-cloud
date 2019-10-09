@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <link rel="stylesheet" type="text/css" href="http://192.168.17.130/static/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="http://192.168.17.130/static/bootstrap/css/bootstrap-theme.css">
+    <script src="http://192.168.17.130/static/jquery-3.4.1.js"></script>
+    <script src="http://192.168.17.130/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="http://192.168.17.130/js/index_js/index.js"></script>
+</head>
+<body>
+<br>
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <form class="form-inline" action="/getAll" id="query" role="form">
+                <div class="form-group col-md-offset-5">
+                    <label class="sr-only" for="name">姓名</label>
+                    <input type="text" class="form-control" id="name" name="name"
+                           placeholder="请输入姓名">
+                </div>
+                <!--<div class="form-group">
+                    <label for="world1">世界</label>
+                    <select name="world" id="world1" class="form-control">
+                        <option value="-1">请选择</option>
+                    </select>
+                </div>-->
+
+                <button type="button" onclick="get()" class="btn btn-default">查询</button>
+                <button type="button" onclick="addDataFromMysql()" class="btn btn-default">同步数据库</button>
+            </form>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>姓名</th>
+                    <th>描述</th>
+                    <th>世界</th>
+                    <th>图片</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="roles">
+
+                </tbody>
+            </table>
+            <div class="row clearfix">
+               <button type="button" class="btn btn-primary col-md-offset-1" data-toggle="modal" data-target="#myModal" onclick="insert();">添加</button>
+                 <!--<button type="button" class="btn btn-primary col-md-offset-1" data-toggle="modal" data-target="#category" onclick="insertCategory();">添加类别</button>-->
+                <!--<div class="col-md-12 column">
+                    <button type="button" class="btn btn-primary col-md-offset-4" data-toggle="modal" data-target="#myModal" onclick="insert();">添加</button>
+                    <ul class="pagination">
+                        <li><span id="pageinfo"></span></li>
+                        <li><a href="javascript:void(0)" onclick="queryAll(1)">首页</a></li>
+                        <li><a href="javascript:void(0)" id="after" onclick="queryAll(pageInfo.prePage)">上页</a></li>
+                        <li><a href="javascript:void(0)" id="before" onclick="queryAll(pageInfo.nextPage)">下页</a></li>
+                        <li><a href="javascript:void(0)" onclick="queryAll(pageInfo.pages)">尾页</a></li>
+                        <li>
+                            <input type="number" class="table-bordered" name="curPage"  min="1" step="1" id="txtCurPage" />
+                        </li>
+                        <li>
+                            <input type="button" onclick="jump()" value="Go" id="btnGo" class="btn btn-primary"/>
+                        </li>
+                    </ul>
+                </div>-->
+            </div>
+
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form role="form" method="post" action="/insertOrUpdateRole" onsubmit="return pass();" id="roleForm" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="xm">姓名</label>
+                                    <input type="hidden" id="id" name="id" >
+                                    <input type="text" class="form-control" id="xm" name="name" required placeholder="请输入姓名">
+                                </div>
+                                <div class="form-group">
+                                    <label for="title">描述</label>
+                                    <input type="text" class="form-control" id="title" name="title" required placeholder="请输入描述">
+                                </div>
+                                <div class="form-group">
+                                    <label for="world">世界</label>
+                                    <select id="world" name="world" class="form-control">
+                                        <option value="-1">请选择</option>
+                                    </select>
+                                    <input type="hidden" id="worldNameh" name="worldName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="img">图片</label>
+                                    <input type="file" onchange="fileCountent()" class="form-control" id="img" name="file">
+                                </div>
+                                <div>
+                                    <img id="fCountent"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" id="btnSaveOrUpdate" onclick="insertOrUpdateRole();">
+                                        完成
+                                    </button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
